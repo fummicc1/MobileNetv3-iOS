@@ -1,0 +1,7 @@
+version: '3'
+services:
+  ml:
+    build: .
+    tty: true
+    volumes:
+      - .:/code

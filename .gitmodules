@@ -1,0 +1,3 @@
+[submodule "MobileNetv3-Sample/MobileNetv3-Sample/CoreMLHelpers"]
+	path = MobileNetv3-Sample/MobileNetv3-Sample/CoreMLHelpers
+	url = https://github.com/hollance/CoreMLHelpers

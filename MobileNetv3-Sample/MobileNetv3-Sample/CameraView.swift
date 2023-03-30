@@ -80,7 +80,7 @@ extension CameraView {
             let device = AVCaptureDevice.default(
               .builtInWideAngleCamera,
               for: .video,
-              position: .front
+              position: .back
             )!
             let cameraInput = try! AVCaptureDeviceInput(device: device)
             guard session.canAddInput(cameraInput) else {

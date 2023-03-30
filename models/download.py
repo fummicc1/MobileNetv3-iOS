@@ -35,7 +35,7 @@ model = ct.convert(
             shape=input.shape,
             scale=scale,
             bias=[red_bias, green_bias, blue_bias],
-            color_layout="RGB",
+            color_layout="BGR",
         )
     ],
     minimum_deployment_target=ct.target.iOS15,

@@ -26,14 +26,15 @@ struct CameraView: UIViewRepresentable {
     }
 
     func makeCoordinator() -> Coordinator {
-        Coordinator()
+        Coordinator(size: size)
     }
 
     func makeUIView(context: Context) -> UICameraView {
         let view = UICameraView(frame: .zero)
+        view.translatesAutoresizingMaskIntoConstraints = false
         view.previewLayer.session = context.coordinator.session
         view.previewLayer.videoGravity = .resizeAspectFill
-        view.frame = CGRect(origin: .zero, size: size)
+        view.frame = CGRect(origin: .zero, size: .zero)
         context.coordinator.didReceiveFrameOutput = { frame in
             DispatchQueue.main.async {
                 self.didReceiveFrameOutput(frame)
@@ -49,6 +50,7 @@ struct CameraView: UIViewRepresentable {
 extension CameraView {
     class Coordinator: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
         let session: AVCaptureSession = .init()
+        let size: CGSize
         let sessionQueue: DispatchQueue = .init(label: "")
         let videoOutput = AVCaptureVideoDataOutput()
 
@@ -57,7 +59,8 @@ extension CameraView {
         var cnt: Int = 0
         let limit: Int = 60
 
-        override init() {
+        init(size: CGSize) {
+            self.size = size
             super.init()
 
             if AVCaptureDevice.authorizationStatus(for: .video) == .notDetermined {
@@ -107,8 +110,50 @@ extension CameraView {
             guard let buffer = sampleBuffer.imageBuffer else {
                 return
             }
-            let image = UIImage(pixelBuffer: buffer)
+            let image = UIImage(pixelBuffer: buffer)!
+                .croppingCenter(to: size)
             didReceiveFrameOutput?(image!)
+        }
+    }
+}
+
+extension UIImage {
+    func croppingCenter(to size: CGSize) -> UIImage? {
+        let scale = self.size.width / size.width
+        let croppingSize: CGSize = imageOrientation.isLandscape ? size.switched : size
+        let croppingRect: CGRect = .init(
+            origin: CGPoint(
+                x: (self.size.width - croppingSize.width) / 2 / scale,
+                y: (self.size.height - croppingSize.height) / 2 / scale
+            ),
+            size: CGSize(
+                width: size.width * scale,
+                height: size.height * scale
+            )
+        )
+        guard let cgImage: CGImage = self.cgImage?.cropping(to: croppingRect) else { return nil }
+        let cropped: UIImage = UIImage(cgImage: cgImage, scale: scale, orientation: imageOrientation)
+        return cropped
+    }
+}
+
+extension CGSize {
+    /// 反転させたサイズを返す
+    var switched: CGSize {
+        return CGSize(width: height, height: width)
+    }
+}
+
+extension UIImage.Orientation {
+    /// 画像が横向きであるか
+    var isLandscape: Bool {
+        switch self {
+        case .up, .down, .upMirrored, .downMirrored:
+            return false
+        case .left, .right, .leftMirrored, .rightMirrored:
+            return true
+        @unknown default:
+            fatalError()
         }
     }
 }

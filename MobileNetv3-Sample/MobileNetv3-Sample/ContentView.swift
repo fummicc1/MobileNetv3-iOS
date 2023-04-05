@@ -12,29 +12,55 @@ import CoreML
 struct ContentView: View {
 
     @State private var classLabel = ""
+    @State private var currentImage: UIImage?
+    @State private var showInputPreview: Bool = false
+    @State private var results: [Classifier.Classification] = []
 
     var body: some View {
-        GeometryReader { proxy in
-            ZStack {
-                CameraView(size: proxy.size) { image in                    
+        ZStack {
+            GeometryReader { proxy in
+                let size = CGSize(
+                    width: min(proxy.size.width, proxy.size.height),
+                    height: min(proxy.size.width, proxy.size.height)
+                )
+                CameraView(size: size) { image in
+                    DispatchQueue.main.async {
+                        if showInputPreview {
+                            currentImage = image
+                        }
+                    }
                     Classifier.perform(image: image, onError: { error in
                     }, onSuccess: { results in
-                        classLabel = ""
-                        for result in results {
-                            if !classLabel.isEmpty {
-                                classLabel = "\n"
-                            }
-                            classLabel += "Label: \(result.label). Confidence: \(result.prob)."
-                        }
+                        self.results = results
                     })
                 }
-                VStack {
-                    Spacer()
-                    Text(classLabel)
-                        .background(Color.white)
-                        .padding()
-                    Spacer().frame(height: 32)
+                .frame(width: size.width, height: size.height)
+            }
+            VStack {
+                Spacer()
+                List {
+                    ForEach(results) { result in
+                        VStack(alignment: .leading) {
+                            HStack {
+                                Text("Label: ")
+                                Text(result.label)
+                            }
+                            HStack {
+                                Text("Prob: ")
+                                Text(String(result.prob))
+                            }
+                        }
+                    }
                 }
+                .frame(height: 120)
+                if let currentImage, showInputPreview {
+                    Image(uiImage: currentImage)
+                        .resizable()
+                        .frame(width: 120, height: 120)
+                }
+                Toggle("Show Preview", isOn: $showInputPreview)
+                    .padding()
+                Spacer().frame(height: 32)
             }
         }
     }

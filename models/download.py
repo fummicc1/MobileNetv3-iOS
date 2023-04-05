@@ -40,4 +40,6 @@ model = ct.convert(
     ],
     minimum_deployment_target=ct.target.iOS15,
 )
+model_compressed = ct.compression_utils.affine_quantize_weights(model)
 model.save("mobilenetv3.mlpackage")
+model_compressed.save("mobilenetv3_compressed.mlpackage")

@@ -12,9 +12,13 @@ import UIKit
 
 class Classifier {
 
-    struct Classification {
+    struct Classification: Identifiable {
         let label: String
         let prob: Double
+
+        var id: String {
+            label
+        }
 
         init(label: String, prob: Double) {
             self.label = label

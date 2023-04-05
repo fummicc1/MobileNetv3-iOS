@@ -11,7 +11,6 @@
 		D30417CB28C0EAA600880DAA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30417CA28C0EAA600880DAA /* ContentView.swift */; };
 		D30417CD28C0EAA700880DAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D30417CC28C0EAA700880DAA /* Assets.xcassets */; };
 		D30417D128C0EAA700880DAA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D30417D028C0EAA700880DAA /* Preview Assets.xcassets */; };
-		D30722A829630EC50092D0CB /* InputProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30722A729630EC50092D0CB /* InputProvider.swift */; };
 		D32BC86429D33F0C00FE9273 /* prepareImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32BC86329D33F0C00FE9273 /* prepareImage.swift */; };
 		D32BC86629D3415A00FE9273 /* mobilenetv3.mlpackage in Resources */ = {isa = PBXBuildFile; fileRef = D3FFA1A128C2496B0072E488 /* mobilenetv3.mlpackage */; };
 		D32BC86829D3B13800FE9273 /* id2label.json in Resources */ = {isa = PBXBuildFile; fileRef = D32BC86729D3B13800FE9273 /* id2label.json */; };
@@ -43,7 +42,6 @@
 		D30417CC28C0EAA700880DAA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D30417CE28C0EAA700880DAA /* MobileNetv3_Sample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MobileNetv3_Sample.entitlements; sourceTree = "<group>"; };
 		D30417D028C0EAA700880DAA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		D30722A729630EC50092D0CB /* InputProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputProvider.swift; sourceTree = "<group>"; };
 		D32BC86329D33F0C00FE9273 /* prepareImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = prepareImage.swift; sourceTree = "<group>"; };
 		D32BC86729D3B13800FE9273 /* id2label.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = id2label.json; sourceTree = "<group>"; };
 		D32BC94C29D3B20300FE9273 /* Array+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
@@ -108,7 +106,6 @@
 				D30417CF28C0EAA700880DAA /* Preview Content */,
 				D3FFA1A928C250C30072E488 /* CameraView.swift */,
 				D3FFA1AD28C343170072E488 /* Classifier.swift */,
-				D30722A729630EC50092D0CB /* InputProvider.swift */,
 				D32BC86329D33F0C00FE9273 /* prepareImage.swift */,
 			);
 			path = "MobileNetv3-Sample";
@@ -230,7 +227,6 @@
 				D32BC96829D3B20300FE9273 /* CGImage+CVPixelBuffer.swift in Sources */,
 				D32BC96029D3B20300FE9273 /* Predictions.swift in Sources */,
 				D3FFA1AE28C343170072E488 /* Classifier.swift in Sources */,
-				D30722A829630EC50092D0CB /* InputProvider.swift in Sources */,
 				D30417CB28C0EAA600880DAA /* ContentView.swift in Sources */,
 				D32BC96929D3B20300FE9273 /* NonMaxSuppression.swift in Sources */,
 				D32BC96129D3B20300FE9273 /* UIImage+Extensions.swift in Sources */,

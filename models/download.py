@@ -1,4 +1,4 @@
-from torchvision.models import mobilenet_v3_small, MobileNet_V3_Small_Weights
+from torchvision.models import mobilenet_v3_large, MobileNet_V3_Large_Weights
 import torch.nn as nn
 import torch
 import coremltools as ct
@@ -7,8 +7,8 @@ import coremltools as ct
 class Model(nn.Module):
     def __init__(self) -> None:
         super().__init__()
-        self.model = mobilenet_v3_small(
-            weights=MobileNet_V3_Small_Weights.IMAGENET1K_V1.DEFAULT)
+        self.model = mobilenet_v3_large(
+            weights=MobileNet_V3_Large_Weights.IMAGENET1K_V1.DEFAULT)
         self.activation = nn.Softmax(dim=1)
 
     def forward(self, img):
@@ -35,7 +35,7 @@ model = ct.convert(
             shape=input.shape,
             scale=scale,
             bias=[red_bias, green_bias, blue_bias],
-            color_layout="BGR",
+            color_layout="RGB",
         )
     ],
     minimum_deployment_target=ct.target.iOS15,
